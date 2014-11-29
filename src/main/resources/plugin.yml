@@ -1,0 +1,12 @@
+ name: SurvivalPlots
+ version: 1.0.0
+ description: Plots in survival worlds!
+ author: woutwoot
+ main: com.woutwoot.svp.Main
+ database: false
+ depend: [WorldEdit, WorldGuard, Vault]
+ commands:
+   svp:
+     description: Main command for SurvivalPlots.
+     aliases: [sp, survivalplots, plot]
+     usage: Syntax error! Try /svp help to find out more.
