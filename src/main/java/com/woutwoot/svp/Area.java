@@ -1,17 +1,17 @@
 package com.woutwoot.svp;
 
-import java.util.Random;
-
-import org.bukkit.Bukkit;
-import org.bukkit.Color;
-import org.bukkit.FireworkEffect;
+import com.sk89q.worldedit.IncompleteRegionException;
+import com.sk89q.worldedit.WorldEdit;
+import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
+import com.sk89q.worldedit.bukkit.selections.Selection;
+import com.sk89q.worldedit.regions.Region;
+import org.bukkit.*;
 import org.bukkit.FireworkEffect.Type;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.inventory.meta.FireworkMeta;
+
+import java.util.Random;
 
 public class Area {
 
@@ -294,4 +294,13 @@ public class Area {
 		 
 		return c;
 		}
+
+	public void regenerate() {
+		Selection selection = new CuboidSelection(this.getC1().getWorld(), this.getC1(), this.getC2());
+		try {
+			Region region = selection.getRegionSelector().getRegion();
+			region.getWorld().regenerate(region, WorldEdit.getInstance().getEditSessionFactory().getEditSession(region.getWorld(), -1));
+		} catch (IncompleteRegionException e) {
+		}
+	}
 }

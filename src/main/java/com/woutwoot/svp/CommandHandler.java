@@ -1,17 +1,14 @@
 package com.woutwoot.svp;
 
+import com.google.common.base.Joiner;
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import com.sk89q.worldedit.bukkit.selections.Selection;
 import net.milkbowl.vault.economy.EconomyResponse;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
-
-import com.google.common.base.Joiner;
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import com.sk89q.worldedit.bukkit.selections.Selection;
 
 public class CommandHandler implements CommandExecutor {
 
@@ -96,8 +93,9 @@ public class CommandHandler implements CommandExecutor {
 				} else if (args[0].equals("buy")) {
 					Plot plot = Main.pm.getPlotByLocation(p.getLocation());
 					if (plot != null && plot.getOwner() == null) {
-						if (Main.econ.getBalance(p.getName()) > plot.getPrice()) {
-							EconomyResponse r = Main.econ.withdrawPlayer(p.getName(), plot.getPrice());
+						if (Main.econ.getBalance(p) > plot.getPrice()) {
+							EconomyResponse r = Main.econ.withdrawPlayer(p, plot.getPrice());
+
 							if (r.transactionSuccess()) {
 								Main.pm.claimPlot(plot.getName(), p.getName());
 								p.sendMessage(Vars.tag + "Tadam! Enjoy your new plot!");

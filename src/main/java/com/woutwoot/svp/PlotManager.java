@@ -49,6 +49,8 @@ public class PlotManager {
 			ProtectedRegion rg = wg.getRegionManager(plot.getArea().getC1().getWorld()).getRegion(plotname);
 			rg.setFlag(DefaultFlag.GREET_MESSAGE, ChatColor.translateAlternateColorCodes('&', "&3Entering &5" + plot.getName() + " &3Owner: &5" + plot.getOwner()));
 			rg.setFlag(DefaultFlag.FAREWELL_MESSAGE, ChatColor.translateAlternateColorCodes('&', "&3Leaving &5" + plot.getName() + " &3Owner: &5" + plot.getOwner()));
+			rg.setFlag(DefaultFlag.MOB_SPAWNING, State.DENY);
+			rg.setPriority(100);
 			try {
 				wg.getRegionManager(plot.getArea().getC1().getWorld()).save();
 			} catch (StorageException e) {
