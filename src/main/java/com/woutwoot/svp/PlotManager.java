@@ -23,7 +23,7 @@ public class PlotManager {
 
 	public void removePlot(String plotname) {
 		Plot p = this.getPlot(plotname);
-		p.getArea().set(Material.AIR);
+		p.getArea().regenerate();
 		wg.getRegionManager(p.getArea().getC1().getWorld()).removeRegion(p.getName());
 		plots.remove(p);
 		Config.deletePlotFile(plotname);
