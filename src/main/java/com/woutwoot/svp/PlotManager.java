@@ -1,24 +1,19 @@
 package com.woutwoot.svp;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
-
 import com.sk89q.worldguard.bukkit.WGBukkit;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.domains.DefaultDomain;
-import com.sk89q.worldguard.protection.databases.ProtectionDatabaseException;
 import com.sk89q.worldguard.protection.flags.DefaultFlag;
 import com.sk89q.worldguard.protection.flags.Flag;
 import com.sk89q.worldguard.protection.flags.StateFlag.State;
+import com.sk89q.worldguard.protection.managers.storage.StorageException;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+import org.bukkit.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class PlotManager {
 
@@ -56,7 +51,7 @@ public class PlotManager {
 			rg.setFlag(DefaultFlag.FAREWELL_MESSAGE, ChatColor.translateAlternateColorCodes('&', "&3Leaving &5" + plot.getName() + " &3Owner: &5" + plot.getOwner()));
 			try {
 				wg.getRegionManager(plot.getArea().getC1().getWorld()).save();
-			} catch (ProtectionDatabaseException e) {
+			} catch (StorageException e) {
 			}
 			DefaultDomain domain = new DefaultDomain();
 			domain.addPlayer(plot.getOwner());
@@ -87,7 +82,7 @@ public class PlotManager {
 			rg.setOwners(domain);
 			try {
 				wg.getRegionManager(plot.getArea().getC1().getWorld()).save();
-			} catch (ProtectionDatabaseException e) {
+			} catch (StorageException e) {
 				return false;
 			}
 			plot.getArea().set(Material.AIR).setOutline(Material.WOOL);
@@ -133,7 +128,7 @@ public class PlotManager {
 		for(World w : worlds){
 			try {
 				wg.getRegionManager(w).save();
-			} catch (ProtectionDatabaseException e) {
+			} catch (StorageException e) {
 			}
 		}
 	}
@@ -148,7 +143,7 @@ public class PlotManager {
 			if(save){
 				try {
 					wg.getRegionManager(plot.getArea().getC1().getWorld()).save();
-				} catch (ProtectionDatabaseException e) {
+				} catch (StorageException e) {
 				}
 			}
 		}else if (plot != null) {
@@ -158,7 +153,7 @@ public class PlotManager {
 			if(save){
 				try {
 					wg.getRegionManager(plot.getArea().getC1().getWorld()).save();
-				} catch (ProtectionDatabaseException e) {
+				} catch (StorageException e) {
 				}
 			}
 		}
